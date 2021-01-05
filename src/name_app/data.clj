@@ -31,7 +31,7 @@
   []
   total-names)
 
-(defn get-name
+(defn get-amount-for-name
   "Returns the amount of the given name or nil if the name is not found"
   [name] 
   (:amount (first (filter #(= (:name %) name) names))))
