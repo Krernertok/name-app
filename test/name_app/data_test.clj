@@ -1,6 +1,6 @@
 (ns name-app.data-test
-  (:require [clojure.test :refer :all]
-            [name-app.data :refer :all]))
+  (:require [clojure.test :refer [deftest testing is]]
+            [name-app.data :refer [get-amount-for-name]]))
 
 (deftest test-get-name
   (testing "Getting amount by name"
