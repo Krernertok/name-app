@@ -6,31 +6,24 @@
                                      :key-fn keyword)
                       :names))
 
-(defn- names-by-amount [] (reverse (sort-by last names)))
-
-(defn- names-by-name [] (sort-by first names))
-
-(defn- total-names []
-  (reduce
-   (fn [total name-map] (+ total (:amount name-map)))
-   0
-   names))
-
 
 (defn get-names-by-amount
   "Returns a list of name maps sorted according to :amount"
   []
-  (names-by-amount))
+  (reverse (sort-by last names)))
 
 (defn get-names-by-name
   "Returns a list of name maps sorted according to :name"
   []
-  (names-by-name))
+  (sort-by first names))
 
 (defn get-total-names
   "Returns the sum of the amounts of names"
   []
-  (total-names))
+  (reduce
+   (fn [total name-map] (+ total (:amount name-map)))
+   0
+   names))
 
 (defn get-amount-for-name
   "Returns the amount of the given name or nil if the name is not found"
