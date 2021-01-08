@@ -1,5 +1,6 @@
 (ns name-app.handlers
   (:require [clojure.data.json :as json]
+            [clojure.string :as str]
             [name-app.data :as data]))
 
 (defn get-names-handler
@@ -12,7 +13,8 @@
 (defn get-name-handler
   [{{{:keys [name]} :path} :parameters}]
   (let [name-data (data/get-name-data name)
-        response-body (or name-data {:name name, :amount 0})]
+        response-body (or name-data 
+                          {:name (str/capitalize name), :amount 0})]
     {:status 200 :body (json/write-str response-body)}))
 
 (defn get-total-names-handler

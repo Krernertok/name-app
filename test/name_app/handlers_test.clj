@@ -40,10 +40,10 @@
 (deftest test-get-name-handler
   (testing "Testing /api/v1/names/:name"
     (testing "Testing with valid name"
-      (is (= (handlers/get-name-handler {:parameters {:path {:name "John"}}})
+      (is (= (handlers/get-name-handler {:parameters {:path {:name "john"}}})
              {:status 200
               :body "{\"name\":\"John\",\"amount\":2}"})))
     (testing "Testing with invalid name"
-      (is (= (handlers/get-name-handler {:parameters {:path {:name "Rupert"}}})
+      (is (= (handlers/get-name-handler {:parameters {:path {:name "rupert"}}})
              {:status 200
               :body "{\"name\":\"Rupert\",\"amount\":0}"})))))
