@@ -1,5 +1,6 @@
 (ns name-app.data
-  (:require [clojure.data.json :as json]))
+  (:require [clojure.data.json :as json]
+            [clojure.string :as string]))
 
 (def ^:private names (get
                       (json/read-str (slurp "data/names.json")
@@ -27,5 +28,6 @@
 
 (defn get-amount-for-name
   "Returns the amount of the given name or nil if the name is not found"
-  [name] 
-  (:amount (first (filter #(= (:name %) name) names))))
+  [name]
+  (let [clean_name (string/lower-case name)]
+    (first (filter #(= (string/lower-case  (:name %)) clean_name) names))))

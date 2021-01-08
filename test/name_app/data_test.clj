@@ -29,6 +29,6 @@
 (deftest test-get-name
   (testing "Getting amount by name"
     (testing "Existing name"
-      (is (= (get-amount-for-name "Michael") 3)))
+      (is (= (get-amount-for-name "Michael") {:name "Michael" :amount 3})))
     (testing "Non-existing name"
       (is (= (get-amount-for-name "Archibald") nil)))))
