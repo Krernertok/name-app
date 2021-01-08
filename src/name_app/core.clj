@@ -44,10 +44,14 @@
                            
 
 (defn start
-  []
-  (jetty/run-jetty #'app {:port 3000 :join? false})
-  (println "name-app server running on port 3000"))
+  ([] (start "3000"))
+  ([port]
+   (let [port-number (Integer/parseInt port)]
+    (jetty/run-jetty #'app {:port port-number :join? false})
+    (println "name-app server running on port " port-number))))
 
 (defn -main
   [& args]
-  (start))
+  (if (nil? args)
+    (start)
+    (start (nth args 0))))
