@@ -26,7 +26,7 @@
    0
    names))
 
-(defn get-amount-for-name
+(defn get-name-data
   "Returns the amount of the given name or nil if the name is not found"
   [name]
   (let [clean_name (string/lower-case name)]

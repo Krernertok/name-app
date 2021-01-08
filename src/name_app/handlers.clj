@@ -2,10 +2,6 @@
   (:require [clojure.data.json :as json]
             [name-app.data :as data]))
 
-(defn default-handler
-  [req]
-  {:status 404 :body "Page not found"})
-
 (defn get-names-handler
   [{{{:keys [sort-by]} :query} :parameters}]
   (if (= sort-by "amount")
@@ -15,7 +11,9 @@
 
 (defn get-name-handler
   [{{{:keys [name]} :path} :parameters}]
-  {:status 200 :body (json/write-str (data/get-amount-for-name name))})
+  (let [name-data (data/get-name-data name)
+        response-body (or name-data {:name name, :amount 0})]
+    {:status 200 :body (json/write-str response-body)}))
 
 (defn get-total-names-handler
   [req]

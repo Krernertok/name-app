@@ -1,12 +1,8 @@
 (ns name-app.data-test
   (:require [clojure.test :refer [deftest testing is use-fixtures]]
-            [name-app.data :refer :all]))
+            [name-app.data :refer :all]
+            [name-app.test-utils :refer [test-fixture]]))
 
-(defn test-fixture [f]
-  (with-redefs [name-app.data/names '({:name "Michael" :amount 3}
-                                      {:name "Roger" :amount 4}
-                                      {:name "John" :amount 2})]
-    (f)))
 
 (use-fixtures :once test-fixture)
 
@@ -29,6 +25,6 @@
 (deftest test-get-name
   (testing "Getting amount by name"
     (testing "Existing name"
-      (is (= (get-amount-for-name "Michael") {:name "Michael" :amount 3})))
+      (is (= (get-name-data "Michael") {:name "Michael" :amount 3})))
     (testing "Non-existing name"
-      (is (= (get-amount-for-name "Archibald") nil)))))
+      (is (= (get-name-data "Archibald") nil)))))
