@@ -9,28 +9,44 @@
    [reitit.ring.middleware.exception :as exception]
    [reitit.ring.middleware.muuntaja :as muuntaja]
    [reitit.ring.middleware.parameters :as parameters]
+   [reitit.swagger :as swagger]
+   [reitit.swagger-ui :as swagger-ui]
    [spec-tools.data-spec :as ds])
   (:gen-class))
 
-(def app 
+(def app
   (ring/ring-handler
    (ring/router
-    [["/api/v1"
+    [["/swagger.json" {:no-doc true
+                       :get {:swagger {:info {:title "Names API"}}
+                             :handler (swagger/create-swagger-handler)}}]
+     
+     ["/api"
+      
+      ["/doc*" {:no-doc true
+                :get (swagger-ui/create-swagger-ui-handler)}]
+      
+      ["/v1"
+       {:swagger {:tags ["/api/v1"]}}
 
-      ["/names"
-       {:get
-        {:parameters {:query {(ds/opt :sort-by) string?}}
-         :responses {200 {:body string?}}
-         :handler handlers/get-names-handler}}]
+       ["/names"
+        {:get
+         {:summary "Returns an array of all recorded names and their amounts."
+          :description "Defaults to sorting name-amount pairs by name. Sorting options are \"amount\" and \"name\"."
+          :parameters {:query {(ds/opt :sort-by) string?}}
+          :responses {200 {:body string?}}
+          :handler handlers/get-names-handler}}]
 
-      ["/names/:name"
-       {:get
-        {:parameters {:path {:name string?}}
-         :responses {200 {:body string?}}
-         :handler handlers/get-name-handler}}]
+       ["/names/:name"
+        {:get
+         {:summary "Returns an object with the name and its amount."
+          :parameters {:path {:name string?}}
+          :responses {200 {:body string?}}
+          :handler handlers/get-name-handler}}]
 
-      ["/total-names"
-       {:get {:handler handlers/get-total-names-handler}}]]]
+       ["/total-names"
+        {:get {:summary "Returns the sum total of all recorded name amounts."
+               :handler handlers/get-total-names-handler}}]]]]
 
     {:data {:coercion reitit.coercion.spec/coercion
             :muuntaja m/instance
@@ -41,6 +57,7 @@
                          muuntaja/format-request-middleware
                          coercion/coerce-response-middleware
                          coercion/coerce-request-middleware]}})
+   
    (ring/create-default-handler
     {:not-found (constantly {:status 404, :body "Resource not found"})
      :method-not-allowed (constantly {:status 405, :body "Method not allowed"})})))
