@@ -4,8 +4,8 @@
             [name-app.data :as data]))
 
 (defn get-names-handler
-  [{{{:keys [sort-by]} :query} :parameters}]
-  (if (= sort-by "amount")
+  [{{{:keys [sort]} :query} :parameters}]
+  (if (= sort "amount")
     {:status 200 :body (json/write-str {:names (data/get-names-by-amount)})}
       ;; default to sorting by name
     {:status 200 :body (json/write-str {:names (data/get-names-by-name)})}))

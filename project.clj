@@ -5,8 +5,10 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/data.json "1.0.0"]
+                 [org.clojure/java.jdbc "0.7.11"]
                  [metosin/reitit "0.5.11"]
-                 [ring/ring-jetty-adapter "1.8.2"]]
+                 [ring/ring-jetty-adapter "1.8.2"]
+                 [org.xerial/sqlite-jdbc "3.34.0"]]
   :main ^:skip-aot name-app.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

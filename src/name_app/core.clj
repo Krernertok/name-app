@@ -33,7 +33,7 @@
         {:get
          {:summary "Returns an array of all recorded names and their amounts."
           :description "Defaults to sorting name-amount pairs by name. Sorting options are \"amount\" and \"name\"."
-          :parameters {:query {(ds/opt :sort-by) string?}}
+          :parameters {:query {(ds/opt :sort) string?}}
           :responses {200 {:body string?}}
           :handler handlers/get-names-handler}}]
 
@@ -74,4 +74,4 @@
   [& args]
   (if (nil? args)
     (start)
-    (start (nth args 0))))
+    (start (first args))))
