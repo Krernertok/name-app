@@ -13,11 +13,13 @@
 (defn get-name-handler
   [{{{:keys [name]} :path} :parameters}]
   (let [name-data (data/get-name-data name)
-        response-body (or name-data 
-                          {:name (str/capitalize name), :amount 0})]
+        cap-name (str/capitalize name)
+        response-body (if (empty? name-data)
+                        {:name cap-name, :amount 0}
+                        (first name-data))]
     {:status 200 :body (json/write-str response-body)}))
 
 (defn get-total-names-handler
-  [req]
-  {:status 200 :body (json/write-str {:total-names (data/get-total-names)})})
+  [_]
+  {:status 200 :body (json/write-str  {:total  (data/get-total-names)})})
 

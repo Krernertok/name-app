@@ -19,15 +19,15 @@
              {:status 200
               :body names-alphabetically-json})))
     (testing "Testing with sort-by=\"amount\""
-      (is (= (handlers/get-names-handler {:parameters {:query {:sort-by "amount"}}})
+      (is (= (handlers/get-names-handler {:parameters {:query {:sort "amount"}}})
              {:status 200
               :body names-by-amount-json})))
     (testing "Testing with sort-by=\"name\""
-      (is (= (handlers/get-names-handler {:parameters {:query {:sort-by "name"}}})
+      (is (= (handlers/get-names-handler {:parameters {:query {:sort "name"}}})
              {:status 200
               :body names-alphabetically-json})))
     (testing "Testing with sort-by=\"random\""
-      (is (= (handlers/get-names-handler {:parameters {:query {:sort-by "random"}}})
+      (is (= (handlers/get-names-handler {:parameters {:query {:sort "random"}}})
              {:status 200
               :body names-alphabetically-json})))))
 
@@ -35,7 +35,7 @@
   (testing "Testing /api/v1/total-names"
     (is (= (handlers/get-total-names-handler nil)
            {:status 200
-            :body "{\"total-names\":9}"}))))
+            :body "{\"total\":9}"}))))
 
 (deftest test-get-name-handler
   (testing "Testing /api/v1/names/:name"

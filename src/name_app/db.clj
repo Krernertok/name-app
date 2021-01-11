@@ -25,7 +25,7 @@
 
 (defn query-total-names
   []
-  (jdbc/query db-spec [(str "SELECT SUM(amount) AS total FROM " query-table)]))
+  (:total (first (jdbc/query db-spec [(str "SELECT SUM(amount) AS total FROM " query-table)]))))
 
 
 (defn create-table

@@ -1,6 +1,5 @@
 (ns name-app.data
-  (:require [name-app.db :as db]
-            [clojure.string :as string]))
+  (:require [name-app.db :as db]))
 
 (defn get-names-by-amount
   "Returns a list of name maps sorted according to :amount"
@@ -20,7 +19,4 @@
 (defn get-name-data
   "Returns the amount of the given name or nil if the name is not found"
   [name]
-  (let [name-data (db/query-name name)]
-    (if (empty? name-data)
-      {:name name :amount 0}
-      (first name-data))))
+  (db/query-name name))
