@@ -1,4 +1,5 @@
 import React from 'react'
+import NameRow from './NameRow'
 
 const Names = ({names}) => {
   return (
@@ -8,12 +9,7 @@ const Names = ({names}) => {
           <td>Name</td>
           <td>Amount</td>
         </tr>
-        {names.map(name => (
-          <tr>
-            <td>{name.name}</td>
-            <td>{name.amount}</td>
-          </tr>
-        ))}
+        {names.map(name => <NameRow key={name.name} name={name} />)}
       </tbody>
     </table>
   )
