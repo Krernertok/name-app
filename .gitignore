@@ -11,11 +11,11 @@ pom.xml
 pom.xml.asc
 *.jar
 *.class
-/.lein-*
-/.nrepl-port
+.lein-*
+.nrepl-port
 .hgignore
 .hg/
 .clj-kondo/
 .lsp/
 .calva/
-data/names.db
+backend/data/names.db

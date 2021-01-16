@@ -22,12 +22,12 @@
     [["/swagger.json" {:no-doc true
                        :get {:swagger {:info {:title "Names API"}}
                              :handler (swagger/create-swagger-handler)}}]
-     
+
      ["/api"
-      
+
       ["/doc*" {:no-doc true
                 :get (swagger-ui/create-swagger-ui-handler)}]
-      
+
       ["/v1"
        {:swagger {:tags ["/api/v1"]}}
 

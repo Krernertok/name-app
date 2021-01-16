@@ -3,12 +3,20 @@
             [clojure.string :as str]
             [name-app.data :as data]))
 
+(def cors-headers {"Access-Control-Allow-Origin" "*"
+                   "Access-Control-Allow-Headers" "Origin, Accept, Access-Control-Request-Method, Access-Control-Allow-Headers, Content-Type, *"})
+(defn ok-response
+ [body] 
+  {:status 200
+   :headers cors-headers
+   :body body})
+
 (defn get-names-handler
   [{{{:keys [sort]} :query} :parameters}]
   (if (= sort "amount")
-    {:status 200 :body (json/write-str {:names (data/get-names-by-amount)})}
+    (ok-response (json/write-str {:names (data/get-names-by-amount)}))
       ;; default to sorting by name
-    {:status 200 :body (json/write-str {:names (data/get-names-by-name)})}))
+    (ok-response (json/write-str {:names (data/get-names-by-name)}))))
 
 (defn get-name-handler
   [{{{:keys [name]} :path} :parameters}]
@@ -17,9 +25,8 @@
         response-body (if (empty? name-data)
                         {:name cap-name, :amount 0}
                         (first name-data))]
-    {:status 200 :body (json/write-str response-body)}))
+    (ok-response (json/write-str response-body))))
 
 (defn get-total-names-handler
   [_]
-  {:status 200 :body (json/write-str  {:total  (data/get-total-names)})})
-
+  (ok-response (json/write-str  {:total  (data/get-total-names)})))

@@ -2,12 +2,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 module.exports = {
-  entry: {
-    index: path.resolve(__dirname, 'src','js', 'index.js')
-  },
+  entry: ['@babel/polyfill', './src/js/index.js'],
   output: {
-    path: path.resolve(__dirname, 'build')
+    path: path.resolve(__dirname, 'build'),
+    filename: 'main.js'
   },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'build'),
+    compress: true,
+    port: 3000
+  },
+  devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'html', 'index.html')
@@ -21,7 +26,10 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: ['babel-loader']
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react']
+        }
       }
     ]
   }
