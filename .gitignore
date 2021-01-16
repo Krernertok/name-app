@@ -1,3 +1,8 @@
+# FRONTEND
+node_modules/
+build/
+
+# BACKEND
 target/
 classes/
 checkouts/
