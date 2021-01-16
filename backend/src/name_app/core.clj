@@ -14,6 +14,8 @@
    [spec-tools.data-spec :as ds])
   (:gen-class))
 
+(def default-port "3001")
+
 (def app
   (ring/ring-handler
    (ring/router
@@ -64,7 +66,7 @@
                            
 
 (defn start
-  ([] (start "3000"))
+  ([] (start default-port))
   ([port]
    (let [port-number (Integer/parseInt port)]
     (jetty/run-jetty #'app {:port port-number :join? false})
