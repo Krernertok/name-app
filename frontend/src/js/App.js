@@ -9,19 +9,32 @@ const sortAlphabeticallyText = 'Sort alphabetically'
 
 const App = () => {
   const [ names, setNames ] = useState([])
-  const [ sortText, setSortText ] = useState(sortByAmountText)
+  const [ filteredNames, setFilteredNames ] = useState([])
+  const [ sortText, setSortText ] = useState(sortAlphabeticallyText)
+  const [ inputValue, setInputValue ] = useState('')
 
   useEffect(() => {
     namedata.getNames().then((data => {
       setNames(data.names)
+      setFilteredNames(data.names)
     }))
   }, [])
+
+  useEffect(() => {
+    if (inputValue === '') {
+      setFilteredNames(names)
+    } else {
+      setFilteredNames(names.filter(name => {
+        return name.name.toLowerCase().includes(inputValue.toLowerCase())
+      }))
+    }
+  }, [inputValue])
 
   const toggleSort = (event) => {
     if (sortText === sortAlphabeticallyText) {
       
       setSortText(sortByAmountText)
-      setNames(Array.from(names).sort((a, b) => {
+      setFilteredNames(Array.from(filteredNames).sort((a, b) => {
         if (a.name < b.name) { return -1; }
         if (a.name > b.name) { return 1; }
         return 0;
@@ -29,16 +42,20 @@ const App = () => {
       
     } else {
       
-      setNames(Array.from(names).sort((a, b) => b.amount - a.amount))
+      setFilteredNames(Array.from(filteredNames).sort((a, b) => b.amount - a.amount))
       setSortText(sortAlphabeticallyText)
 
     }
   }
 
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value)
+  }
+
   return (
     <>
       <Header title={'Name App'} />
-      <Names names={names} />
+      <Names names={filteredNames} inputValue={inputValue} handleInputChange={handleInputChange} />
       <Button text={sortText} handleClick={toggleSort} />
     </>
   )
