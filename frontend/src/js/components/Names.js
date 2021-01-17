@@ -3,13 +3,13 @@ import NameRow from './NameRow'
 
 const Names = ({names}) => {
   return (
-    <table>
+    <table className="w-full my-5">
       <tbody>
-        <tr>
-          <td>Name</td>
-          <td>Amount</td>
+        <tr className="text-lg bg-emerald-600 text-white">
+          <td className="px-2">Name</td>
+          <td className="px-2">Amount</td>
         </tr>
-        {names.map(name => <NameRow key={name.name} name={name} />)}
+        {names.map((name, index) => <NameRow key={name.name} name={name} index={index} />)}
       </tbody>
     </table>
   )
