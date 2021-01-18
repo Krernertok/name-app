@@ -1,17 +1,14 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import namedata from './services/names.js'
 import Header from './components/Header'
 import Names from './components/Names'
-import Button from './components/Button'
-
-const sortByAmountText = 'Sort by amount'
-const sortAlphabeticallyText = 'Sort alphabetically'
+import {sortModes, SortButton} from './components/SortButton'
 
 const App = () => {
   const [ names, setNames ] = useState([])
   const [ filteredNames, setFilteredNames ] = useState([])
-  const [ sortText, setSortText ] = useState(sortAlphabeticallyText)
   const [ inputValue, setInputValue ] = useState('')
+  const [ selectedMode, setSelectedMode ] = useState(sortModes.BY_AMOUNT)
 
   useEffect(() => {
     namedata.getNames().then((data => {
@@ -30,22 +27,18 @@ const App = () => {
     }
   }, [inputValue])
 
-  const toggleSort = (event) => {
-    if (sortText === sortAlphabeticallyText) {
-      
-      setSortText(sortByAmountText)
-      setFilteredNames(Array.from(filteredNames).sort((a, b) => {
-        if (a.name < b.name) { return -1; }
-        if (a.name > b.name) { return 1; }
-        return 0;
-      }))
-      
-    } else {
-      
-      setFilteredNames(Array.from(filteredNames).sort((a, b) => b.amount - a.amount))
-      setSortText(sortAlphabeticallyText)
+  const handleSortAlphabetically = () => {
+    setSelectedMode(sortModes.ALPHABETICALLY)
+    setFilteredNames(Array.from(filteredNames).sort((a, b) => {
+      if (a.name < b.name) { return -1; }
+      if (a.name > b.name) { return 1; }
+      return 0;
+    }))
+  }
 
-    }
+  const handleSortByAmount = () => {
+    setSelectedMode(sortModes.BY_AMOUNT)
+    setFilteredNames(Array.from(filteredNames).sort((a, b) => b.amount - a.amount))
   }
 
   const handleInputChange = (event) => {
@@ -56,7 +49,19 @@ const App = () => {
     <>
       <Header title={'Name App'} />
       <Names names={filteredNames} inputValue={inputValue} handleInputChange={handleInputChange} />
-      <Button text={sortText} handleClick={toggleSort} />
+      
+      <SortButton 
+        text="Sort by amount"
+        sortMode={sortModes.BY_AMOUNT}
+        selectedMode={selectedMode}
+        handleClick={handleSortByAmount}
+      />
+      <SortButton
+        text="Sort alphabetically"
+        sortMode={sortModes.ALPHABETICALLY}
+        selectedMode={selectedMode}
+        handleClick={handleSortAlphabetically}
+      />
     </>
   )
 }
