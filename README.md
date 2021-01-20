@@ -45,7 +45,7 @@ The same information can be found in the following section (API endpoints)
 
 Returns an object containing an array of all recorded names and their amounts. Defaults to sorting name-amount pairs by name. Sorting options are \"amount\" and \"name\" and are passed as a query parameter with the key \"sort\", e.g. `http://localhost:3001/names?sort=name`.
 
-Example data:
+Example response data:
 
     {
         "names": [
@@ -68,7 +68,7 @@ Example data:
 
 Returns an object with the name and its amount. The amount is set to 0 if the name is not found in the database.
 
-Example data:
+Example response data:
 
     {
         "name": "Eric",
@@ -79,7 +79,7 @@ Example data:
 
 Returns the sum total of all recorded name amounts.
 
-Example data:
+Example response data:
 
     {
         "total": 211
