@@ -5,6 +5,11 @@ import Names from './components/Names'
 import {sortModes, SortButton} from './components/SortButton'
 
 const App = () => {
+  /**
+   * 'names' contains the raw name data.
+   * 'filteredNames' is used for rendering the table based on filtering input
+   * and selected sorting mode.
+   **/  
   const [ names, setNames ] = useState([])
   const [ filteredNames, setFilteredNames ] = useState([])
   const [ inputValue, setInputValue ] = useState('')
