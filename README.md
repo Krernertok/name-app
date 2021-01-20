@@ -4,7 +4,12 @@ A simple toy app using React and Clojure. The frontend displays a table of names
 
 ## Installation
 
-Download the code and run `npm install` in the `/frontend` directory. The backend dependencies will be installed when the backend app is first run (see below for details).
+Download the code and run `npm install` in the `/frontend` directory. The backend dependencies will be installed when the backend app is first run (see below for details). Create the names database by running the following commands in the `backend` directory:
+
+    lein repl
+    (in-ns 'name-app.db)
+    (-main)
+    (quit)
 
 ## Usage
 
@@ -20,14 +25,7 @@ To start the frontend server (needed to serve the frontend files):
 
 To start the backend server:
 1. Go to the `/backend` directory
-2. Create the database with the names data:
-
-    lein repl
-    (in-ns 'name-app.db)
-    (-main)
-    (quit)
-
-3. Run `lein run`
+2. Run `lein run`
 
 The frontend server uses port 3000 and the backend server uses port 3001. If you only want to use the backend API, you can specify a different port by passing it as an argument to the `lein run` command. For example:
 
