@@ -4,7 +4,7 @@ A simple toy app using React and Clojure. The frontend displays a table of names
 
 ## Installation
 
-Download the code and run `npm install` in the `/frontend` directory. The backend dependencies will be installed when the backend app is first run (see below for details). Create the names database by running the following commands in the `backend` directory:
+Download the code and run `npm install` in the `/frontend` directory. The backend dependencies will be installed when the backend app is first run (see below for details). Create the names database by opening the Lein REPL in the `backend` directory and running the following clojure statements (the first line opens the REPL on the command line):
 
     lein repl
     (in-ns 'name-app.db)
@@ -45,7 +45,7 @@ The same information can be found in the following section (API endpoints)
 
 Returns an object containing an array of all recorded names and their amounts. Defaults to sorting name-amount pairs by name. Sorting options are \"amount\" and \"name\" and are passed as a query parameter with the key \"sort\", e.g. `http://localhost:3001/names?sort=name`.
 
-Example using `http://localhost:3001/names?sort=name`:
+Example data:
 
     {
         "names": [
@@ -68,7 +68,7 @@ Example using `http://localhost:3001/names?sort=name`:
 
 Returns an object with the name and its amount. The amount is set to 0 if the name is not found in the database.
 
-Example using `http://localhost:3001/api/v1/names/eric`:
+Example data:
 
     {
         "name": "Eric",
@@ -79,7 +79,7 @@ Example using `http://localhost:3001/api/v1/names/eric`:
 
 Returns the sum total of all recorded name amounts.
 
-Example using `http://localhost:3001/api/v1/total-names`:
+Example data:
 
     {
         "total": 211
