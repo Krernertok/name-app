@@ -4,7 +4,7 @@ A simple toy app using React and Clojure. The frontend displays a table of names
 
 ## Installation
 
-Download the code and run `npm install` in the `/frontend` directory. The backend dependencies will be installed when the backend app is first run (see below for details). Create the names database by opening the Lein REPL in the `backend` directory and running the following clojure statements (the first line opens the REPL on the command line):
+Download the code and run `npm install` in the `/frontend` directory. The backend dependencies will be installed when the backend app is first run (see below for details). Create the names database by opening the Lein REPL in the `/backend` directory and running the following clojure statements (the first line opens the REPL on the command line):
 
     lein repl
     (in-ns 'name-app.db)
@@ -33,7 +33,7 @@ The frontend server uses port 3000 and the backend server uses port 3001. If you
 
 ### API Documentation
 
-Swagger documentation for the backend API is also served by the backend API. The documentation can be accessed via (using the default port) at:
+Swagger documentation for the backend API is also served by the backend API. The documentation can be accessed (using the default port) at:
 
     http://localhost:3001/api/doc
 
@@ -84,6 +84,7 @@ Example response data:
     {
         "total": 211
     }
+
 
 ## Technology Stack
 
